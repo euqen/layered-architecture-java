@@ -1,16 +1,12 @@
 package by.bsuir.lab01.start;
 
-import by.bsuir.lab01.view.View;
+import by.bsuir.lab01.view.Console;
 
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("WELCOME TO YOUR LIBRARY");
-
-		View menu = new View();
-
-		menu.menu(1);
-
+		Console console = new Console();
+		console.showUserActions();
 	}
 
 }

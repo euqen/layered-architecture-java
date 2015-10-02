@@ -1,19 +1,24 @@
 package by.bsuir.lab01.dao;
 
-import by.bsuir.lab01.dao.factoryimpl.FileDaoFactory;
+import by.bsuir.lab01.dao.factory.file.FileDaoFactory;
+import by.bsuir.lab01.entity.Entity;
+
+import java.util.ArrayList;
 
 public abstract class DaoFactory {
-	private static final String DAO_TYPE = "file";//you must read it from property file
+
+	private static final String DAO_TYPE = "file"; //you must read it from property file
 	
-	public static DaoFactory getDaoFactory(){
-		switch (DAO_TYPE){
-		case "file":
-			return FileDaoFactory.getInstance();
+	public static DaoFactory getDao(Entity entity) {
+		if (DAO_TYPE.contentEquals("file")) {
+			return FileDaoFactory.getInstance(entity);
 		}
+
 		return null;
 	}
-	
 
-	public abstract FindDao getFindDao();
-	public abstract ModificationDao getModificationDao();
+	public abstract ArrayList<Entity> find() throws DaoException;
+	public abstract Entity findOne(Entity entity) throws DaoException;
+	public abstract void insert(Entity entity) throws DaoException;
+
 }

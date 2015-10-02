@@ -1,23 +1,33 @@
 package by.bsuir.lab01.service;
 
-import by.bsuir.lab01.bean.Request;
+import by.bsuir.lab01.dao.DaoException;
+import by.bsuir.lab01.dao.DaoFactory;
+import by.bsuir.lab01.dao.factory.file.UserDao;
+import by.bsuir.lab01.entity.User;
 
-import java.util.Map;
+public final class UserService extends BaseViewService {
 
+    public static void signIn(User user) throws ServiceException {
+        UserDao userDao = (UserDao)DaoFactory.getDao(user);
 
-public class UserService {
+        try {
+            userDao.signIn(user);
+        }
+        catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
 
-    public static Boolean signIn(Map<String, String> userData) {
-        return true;
     }
 
-    public static Boolean getByUserName(String username) throws ServiceException {
-        return true;
-    }
+    public static void signOut(User user) throws ServiceException {
+        UserDao userDao = (UserDao)DaoFactory.getDao(user);
 
-    public static Boolean signUp(Map<String, String> userData) {
-        return true;
+        try {
+            userDao.signOut();
+        }
+        catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
     }
-
 
 }

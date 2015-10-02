@@ -1,26 +1,45 @@
 package by.bsuir.lab01.actions.book;
 
-import by.bsuir.lab01.bean.Request;
+import by.bsuir.lab01.bean.Book.BookRequest;
+import by.bsuir.lab01.actions.Controller;
 import by.bsuir.lab01.bean.Response;
-import by.bsuir.lab01.command.Command;
-import by.bsuir.lab01.command.CommandException;
-import by.bsuir.lab01.command.CommandHelper;
 
-public class BookController {
-	private CommandHelper commandList = new CommandHelper();
+public class BookController extends Controller {
 
-	private Response executeRequest(Request request) {
-		Response response = null;
-		try {
-			String commandName = request.getCommandName();
-			Command command = commandList.getCommand(commandName);
-			response = command.execute(request);
-		}
-		catch(CommandException ex) {
-			response = new Response();
-			response.setErrorMessage("Error message!");
-		}
+	public void getByAuthor(String author) {
+		BookRequest request = new BookRequest();
+		request.setAuthor(author);
+		request.setCommandName("GET_BY_AUTHOR");
 
-		return response;		
+		Response response = this.executeRequest(request);
+		this.render(response);
+	}
+
+	public void getByTitle(String title) {
+		BookRequest request = new BookRequest();
+		request.setTitle(title);
+		request.setCommandName("GET_BY_TITLE");
+
+		Response response = this.executeRequest(request);
+		this.render(response);
+	}
+
+	public void getAll() {
+		BookRequest request = new BookRequest();
+		request.setCommandName("GET_ALL");
+
+		Response response = this.executeRequest(request);
+		this.render(response);
+	}
+
+	public void insert(String author, String title) {
+
+		BookRequest request = new BookRequest();
+		request.setAuthor(author);
+		request.setTitle(title);
+		request.setCommandName("INSERT_BOOK");
+
+		Response response = this.executeRequest(request);
+		this.render(response);
 	}
 }

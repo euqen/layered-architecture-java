@@ -1,66 +1,50 @@
 package by.bsuir.lab01.actions.user;
 
-import by.bsuir.lab01.bean.SignInRequest;
-import by.bsuir.lab01.bean.Response;
-import by.bsuir.lab01.bean.Request;
-import by.bsuir.lab01.command.Command;
-import by.bsuir.lab01.command.CommandException;
-import by.bsuir.lab01.command.CommandHelper;
-import by.bsuir.lab01.view.View;
+import by.bsuir.lab01.actions.Controller;
+import by.bsuir.lab01.bean.*;
+import by.bsuir.lab01.bean.User.UserRequest;
+import by.bsuir.lab01.bean.User.UserResponse;
+import by.bsuir.lab01.entity.User;
+import by.bsuir.lab01.view.Console;
 
-
-public class UserController {
-
-    private CommandHelper commandList = new CommandHelper();
+public class UserController extends Controller {
 
     public void signIn(String username, String password) {
 
-        SignInRequest signInRequest = new SignInRequest();
-        signInRequest.setUsername(username);
-        signInRequest.setPassword(password);
-        signInRequest.setCommandName("SIGN_IN");
-        this.executeRequest(signInRequest);
+        UserRequest request = new UserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setCommandName("SIGN_IN");
+        UserResponse response = (UserResponse)this.executeRequest(request);
 
+        this.render(response);
+        this.renderUser(response.getUser());
     }
 
     public void signUp(String username, String password) {
 
-        SignInRequest signInRequest = new SignInRequest();
-        signInRequest.setUsername(username);
-        signInRequest.setPassword(password);
-        signInRequest.setCommandName("SIGN_UP");
+        UserRequest request = new UserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setCommandName("SIGN_UP");
 
-        Response response = this.executeRequest(signInRequest);
+        UserResponse response = (UserResponse)this.executeRequest(request);
 
-        String message = null;
-
-        if (response.getStatus() == 200) {
-            View.notification(response.getSuccessMessage());
-        }
-        else {
-            View.alert(response.getErrorMessage());
-        }
-
+        this.render(response);
+        this.renderUser(response.getUser());
     }
 
-    public void singOut() {
+    public void signOut() {
+        UserRequest request = new UserRequest();
+        request.setCommandName("SIGN_OUT");
 
+        UserResponse response = (UserResponse)this.executeRequest(request);
+
+        this.render(response);
     }
 
-    private Response executeRequest(Request request) {
-        Response response = null;
-
-        try {
-            String commandName = request.getCommandName();
-            Command command = commandList.getCommand(commandName);
-            response = command.execute(request);
-        }
-        catch(CommandException ex) {
-            response = new Response();
-            response.setErrorMessage("Error message!");
-        }
-
-        return response;
+    private void renderUser(User user) {
+        Console.println("Username:" + user.username);
     }
 
 }
