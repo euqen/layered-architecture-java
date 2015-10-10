@@ -28,6 +28,11 @@ public class SignUpUserCommand extends Command {
 
             try {
                 user = (User)UserService.findOne(contractData);
+
+                if (user.exists()) {
+                    throw new ServiceException("This user is already exists!");
+                }
+
                 UserService.insert(contractData);
             }
             catch(ServiceException e) {
@@ -40,7 +45,7 @@ public class SignUpUserCommand extends Command {
             return response;
         }
 
-        response.setSuccessMessage("User successfully signed in!");
+        response.setSuccessMessage("User successfully signed up!");
         response.setUser(user);
         response.setStatus(SUCCEED);
         return response;

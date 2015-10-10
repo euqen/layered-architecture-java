@@ -17,10 +17,11 @@ public final class BookDao extends FileDaoFactory {
         return instance;
     }
 
+    private final String origin = "/home/euqen/src/by/bsuir/lab01/source/books.txt";
 
     @Override
     public ArrayList<Entity> find() throws DaoException {
-        File file = new File("books.txt");
+        File file = new File(origin);
 
         try {
             this.isOriginExists(file);
@@ -38,7 +39,26 @@ public final class BookDao extends FileDaoFactory {
                 String line;
                 while ((line = in.readLine()) != null) {
                     Book book = new Book();
-                    book.title = line; //TO DO get author
+                    String title = ""; Integer pos = 0;
+                    String author = "";
+
+                    for(Integer i = 0; i < line.length(); i++) {
+                        if (line.charAt(i) != ':') {
+                            title += line.charAt(i);
+                        }
+                        else {
+                            pos = ++i;
+                            break;
+                        }
+                    }
+
+                    for (Integer i = pos; i < line.length(); i++) {
+                        author += line.charAt(i);
+                    }
+
+                    book.title = title;
+                    book.author = author;
+
                     resultSet.add(book);
                 }
             }
@@ -47,7 +67,7 @@ public final class BookDao extends FileDaoFactory {
             }
         }
         catch (IOException e) {
-            throw new DaoException("Error reading file", e);
+            throw new DaoException(e.getMessage(), e);
         }
 
         return resultSet;
@@ -56,7 +76,7 @@ public final class BookDao extends FileDaoFactory {
 
     @Override
     public Entity findOne(Entity book) throws DaoException {
-        File file = new File("books.txt");
+        File file = new File(origin);
 
         try {
             this.isOriginExists(file);
@@ -74,15 +94,33 @@ public final class BookDao extends FileDaoFactory {
             try {
                 String line;
                 while ((line = in.readLine()) != null) {
-                    if (query.title != null) {
-                        if (query.title.contentEquals(line)) {
-                            result.title = line;
+                    String title = ""; Integer pos = 0;
+                    String author = "";
+
+                    for(Integer i = 0; i < line.length(); i++) {
+                        if (line.charAt(i) != ':') {
+                            title += line.charAt(i);
+                        }
+                        else {
+                            pos = i++;
                             break;
                         }
                     }
-                    if (query.author != null) {
-                        //check equal with author
+
+                    for (Integer i = pos; i < line.length(); i++) {
+                        author += line.charAt(i);
                     }
+
+                    if (query.title != null && query.title.contentEquals(title)) {
+                        result.title = title;
+                        break;
+                    }
+
+                    if (query.author != null && query.author.contentEquals(author)) {
+                        result.author = author;
+                        break;
+                    }
+
                 }
             }
             finally {
@@ -90,14 +128,14 @@ public final class BookDao extends FileDaoFactory {
             }
         }
         catch (IOException e) {
-            throw new DaoException("Error reading file", e);
+            throw new DaoException(e.getMessage(), e);
         }
 
         return result;
     }
 
     public void insert(Entity book) throws DaoException {
-        File file = new File("books.txt");
+        File file = new File(origin);
 
         try {
             this.isOriginExists(file);
@@ -107,11 +145,11 @@ public final class BookDao extends FileDaoFactory {
         }
 
         try {
-            PrintWriter out = new PrintWriter(file.getAbsoluteFile());
+            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(origin, true)));
             Book query = (Book)book;
 
             try {
-                out.print(query.title);
+                out.println(query.title + ":" + query.author);
             }
             finally {
                 out.close();
@@ -121,6 +159,114 @@ public final class BookDao extends FileDaoFactory {
             throw new DaoException(e.getMessage(), e);
         }
 
+    }
+
+    public ArrayList<Entity> findByAuthor(Book query) throws DaoException {
+        File file = new File(origin);
+
+        try {
+            this.isOriginExists(file);
+        }
+        catch (DaoException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+        ArrayList<Entity> resultSet = new ArrayList<>();
+
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+
+            try {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    Book book = new Book();
+                    String title = ""; Integer pos = 0;
+                    String author = "";
+
+                    for(Integer i = 0; i < line.length(); i++) {
+                        if (line.charAt(i) != ':') {
+                            title += line.charAt(i);
+                        }
+                        else {
+                            pos = ++i;
+                            break;
+                        }
+                    }
+
+                    for (Integer i = pos; i < line.length(); i++) {
+                        author += line.charAt(i);
+                    }
+
+                    if (query.author.contentEquals(author)) {
+                        book.title = title;
+                        book.author = author;
+                        resultSet.add(book);
+                    }
+                }
+            }
+            finally {
+                in.close();
+            }
+        }
+        catch (IOException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+        return resultSet;
+    }
+
+    public ArrayList<Entity> findByTitle(Book query) throws DaoException {
+        File file = new File(origin);
+
+        try {
+            this.isOriginExists(file);
+        }
+        catch (DaoException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+        ArrayList<Entity> resultSet = new ArrayList<>();
+
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+
+            try {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    Book book = new Book();
+                    String title = ""; Integer pos = 0;
+                    String author = "";
+
+                    for(Integer i = 0; i < line.length(); i++) {
+                        if (line.charAt(i) != ':') {
+                            title += line.charAt(i);
+                        }
+                        else {
+                            pos = ++i;
+                            break;
+                        }
+                    }
+
+                    for (Integer i = pos; i < line.length(); i++) {
+                        author += line.charAt(i);
+                    }
+
+                    if (query.title.contentEquals(title)) {
+                        book.title = title;
+                        book.author = author;
+                        resultSet.add(book);
+                    }
+                }
+            }
+            finally {
+                in.close();
+            }
+        }
+        catch (IOException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+        return resultSet;
     }
 
     private void isOriginExists(File file) throws DaoException {

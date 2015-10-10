@@ -12,6 +12,8 @@ import by.bsuir.lab01.service.BaseViewService;
 import by.bsuir.lab01.service.BookService;
 import by.bsuir.lab01.service.ServiceException;
 
+import java.util.ArrayList;
+
 public class GetByAuthorCommand extends Command {
 
     @Override
@@ -20,14 +22,14 @@ public class GetByAuthorCommand extends Command {
 
         GetByAuthorContract getByAuthorContract = new GetByAuthorContract();
 
-        Book result;
+        ArrayList<Entity> result;
 
         try {
             getByAuthorContract.validate(request);
             Book contractData = getByAuthorContract.getContractData(request);
 
             try {
-                result = (Book)BookService.findOne(contractData);
+                result = BookService.findByAuthor(contractData);
             }
             catch (ServiceException e) {
                 throw new CommandException(e.getMessage(), e);
@@ -39,8 +41,8 @@ public class GetByAuthorCommand extends Command {
             return response;
         }
 
-        response.setSuccessMessage("Book was found!");
-        response.setBook(result);
+        response.setSuccessMessage("Found " + result.size() + " book(s)");
+        response.setBooks(result);
         response.setStatus(SUCCEED);
         return response;
     }

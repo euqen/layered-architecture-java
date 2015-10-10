@@ -6,6 +6,7 @@ import by.bsuir.lab01.entity.User;
 public class UserResponse extends Response {
 
     private User user;
+    private String autoAuthError;
 
     public User getUser() {
         return this.user;
@@ -15,4 +16,19 @@ public class UserResponse extends Response {
         this.user = user;
     }
 
+    public void setAutoAuthError(String error) {
+        this.autoAuthError = error;
+    }
+
+    public String getAutoAuthError() {
+        return this.autoAuthError;
+    }
+
+    public boolean hasErrors() {
+        if (autoAuthError != null) {
+            return true;
+        }
+
+        return false;
+    }
 }

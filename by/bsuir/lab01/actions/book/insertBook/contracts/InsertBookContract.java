@@ -1,7 +1,7 @@
 package by.bsuir.lab01.actions.book.insertBook.contracts;
 
 import by.bsuir.lab01.actions.Contract;
-import by.bsuir.lab01.bean.NewBookRequest;
+import by.bsuir.lab01.bean.Book.BookRequest;
 import by.bsuir.lab01.bean.Request;
 import by.bsuir.lab01.actions.Validators;
 import by.bsuir.lab01.command.CommandException;
@@ -13,15 +13,26 @@ public class InsertBookContract extends Validators implements Contract {
     @Override
     public void validate(Request req) throws CommandException {
 
-        NewBookRequest request = (NewBookRequest) req;
+        BookRequest request = (BookRequest) req;
 
-        if (!this.between(request.getTitle(), 1, 50)) {
+        String title = request.getTitle();
+        title = title.trim();
+        title = Capitalize(title);
+
+        String author = request.getAuthor();
+        author = author.trim();
+        author = Capitalize(author);
+
+        if (!this.between(title, 1, 50)) {
             throw new CommandException("Title should be from 1 to 50 characters");
         }
 
-        if (!this.between(request.getAuthor(), 2, 50)) {
-            throw new CommandException("Password should be from 2 to 50 characters");
+        if (!this.between(author, 2, 50)) {
+            throw new CommandException("Author should be from 2 to 50 characters");
         }
+
+        request.setTitle(title);
+        request.setAuthor(author);
 
     }
 
@@ -29,7 +40,7 @@ public class InsertBookContract extends Validators implements Contract {
     public Book getContractData(Request req) {
         Book contractData = new Book();
 
-        NewBookRequest request = (NewBookRequest) req;
+        BookRequest request = (BookRequest) req;
 
         contractData.title = request.getTitle();
         contractData.author = request.getAuthor();

@@ -35,7 +35,7 @@ public class InsertBookCommand extends Command {
 			return response;
 		}
 
-		response.setSuccessMessage("Vse zaebis");
+		response.setSuccessMessage("Book has been successfully inserted!");
 		response.setStatus(SUCCEED);
 		return response;
 	}

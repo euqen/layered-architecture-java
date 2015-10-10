@@ -15,7 +15,7 @@ public class GetAllBooksContract extends Validators implements Contract {
 
     @Override
     public Book getContractData(Request req) {
-       return null;
+       return new Book();
     }
 
 }

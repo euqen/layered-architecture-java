@@ -7,5 +7,6 @@ public enum CommandName {
 	GET_BY_AUTHOR,
 	SIGN_IN,
 	SIGN_UP,
-	SIGN_OUT
+	SIGN_OUT,
+	AUTO_SIGN_IN
 }

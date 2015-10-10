@@ -5,8 +5,16 @@ import by.bsuir.lab01.actions.user.UserController;
 
 import java.util.Scanner;
 
-public class Console {
+public final class Console {
 	// view -> actions -> command(domain) -> service -> dao -> source
+
+	private Console() {}
+
+	private static final Console instance = new Console();
+
+	public static Console getInstance() {
+		return instance;
+	}
 
 	private UserController userController = new UserController();
 	private BookController bookController = new BookController();
@@ -19,6 +27,7 @@ public class Console {
 	private static final String ANSI_YELLOW = "\u001B[33m";
 
 	public void showUserActions() {
+		System.out.println("\n");
 		System.out.println("Sign In: 1");
 		System.out.println("SignUp: 2");
 		System.out.print("> ");
@@ -35,6 +44,7 @@ public class Console {
 	}
 
 	public void showBookActions() {
+		System.out.println("\n");
 		System.out.println("Find books by author: 1");
 		System.out.println("Find books by title: 2");
 		System.out.println("Find all books: 3");

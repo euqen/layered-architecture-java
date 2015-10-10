@@ -9,6 +9,7 @@ import by.bsuir.lab01.command.CommandException;
 import by.bsuir.lab01.entity.User;
 import by.bsuir.lab01.service.ServiceException;
 import by.bsuir.lab01.service.UserService;
+import by.bsuir.lab01.view.Console;
 
 public class SignInUserCommand extends Command {
 
@@ -18,7 +19,7 @@ public class SignInUserCommand extends Command {
 
 		SignInUserContract signInContract = new SignInUserContract();
 
-		User result;
+		User result = null;
 
 		try {
 			signInContract.validate(request);
@@ -26,13 +27,22 @@ public class SignInUserCommand extends Command {
 
 			try {
 				result = (User)UserService.findOne(contractData);
+
+				if (!result.exists()) {
+					throw new CommandException("User " + contractData.username + " does not exists!");
+				}
+
+				if (!result.isPasswordCorrect()) {
+					throw new CommandException("Oops! Incorrect password!");
+				}
+
 				UserService.signIn(contractData);
 			}
 			catch (ServiceException e) {
 				throw new CommandException(e.getMessage(), e);
 			}
 		}
-		catch(CommandException e) {
+		catch (CommandException e) {
 			response.setErrorMessage(e.getMessage());
 			response.setStatus(INTERNAL_ERROR);
 			return response;

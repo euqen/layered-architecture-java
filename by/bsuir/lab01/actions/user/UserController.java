@@ -9,6 +9,18 @@ import by.bsuir.lab01.view.Console;
 
 public class UserController extends Controller {
 
+    public Boolean autoSignIn() {
+        UserRequest request = new UserRequest();
+        request.setCommandName("AUTO_SIGN_IN");
+        UserResponse response = (UserResponse)this.executeRequest(request);
+        if (!response.hasErrors()) {
+            this.render(response);
+            return true;
+        }
+
+        return false;
+    }
+
     public void signIn(String username, String password) {
 
         UserRequest request = new UserRequest();
@@ -18,7 +30,14 @@ public class UserController extends Controller {
         UserResponse response = (UserResponse)this.executeRequest(request);
 
         this.render(response);
-        this.renderUser(response.getUser());
+
+        Console console = Console.getInstance();
+        if (response.getStatus() == 200) {
+            console.showBookActions();
+        }
+        else {
+            console.showUserActions();
+        }
     }
 
     public void signUp(String username, String password) {
@@ -29,9 +48,12 @@ public class UserController extends Controller {
         request.setCommandName("SIGN_UP");
 
         UserResponse response = (UserResponse)this.executeRequest(request);
-
         this.render(response);
-        this.renderUser(response.getUser());
+
+        if (response.getStatus() == 200) {
+            this.signIn(username, password);
+        }
+
     }
 
     public void signOut() {
@@ -41,10 +63,9 @@ public class UserController extends Controller {
         UserResponse response = (UserResponse)this.executeRequest(request);
 
         this.render(response);
-    }
 
-    private void renderUser(User user) {
-        Console.println("Username:" + user.username);
+        Console console = Console.getInstance();
+        console.showUserActions();
     }
 
 }

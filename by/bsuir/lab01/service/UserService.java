@@ -7,6 +7,21 @@ import by.bsuir.lab01.entity.User;
 
 public final class UserService extends BaseViewService {
 
+    public static User getTemporaryAuthData() throws ServiceException {
+        UserDao userDao = (UserDao)DaoFactory.getDao(new User());
+
+        User user;
+
+        try {
+           user = userDao.getTemporaryAuthData();
+        }
+        catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+        return user;
+    }
+
     public static void signIn(User user) throws ServiceException {
         UserDao userDao = (UserDao)DaoFactory.getDao(user);
 

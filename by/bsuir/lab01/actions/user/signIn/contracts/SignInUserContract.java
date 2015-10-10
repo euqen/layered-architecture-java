@@ -14,14 +14,24 @@ public class SignInUserContract extends Validators implements Contract {
 
        UserRequest request = (UserRequest)req;
 
-        if (!this.between(request.getUsername(), 2, 15)) {
+        String username = request.getUsername();
+        username = username.trim().toLowerCase();
+
+        String password = request.getPassword();
+        password = password.trim().toLowerCase();
+
+
+        if (!this.between(username, 2, 15)) {
             throw new CommandException("Username should be from 2 to 15 characters");
         }
 
-        if (!this.between(request.getPassword(), 6, 20)) {
+        if (!this.between(password, 6, 20)) {
             throw new CommandException("Password should be from 6 to 20 characters");
         }
 
+
+        request.setPassword(password);
+        request.setUsername(username);
     }
 
     @Override

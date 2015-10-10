@@ -14,10 +14,15 @@ public class GetByTitleContract extends Validators implements Contract {
 
         BookRequest request = (BookRequest)req;
 
-        if (this.isEmpty(request.getTitle())) {
+        String title = request.getTitle();
+        title = title.trim();
+        title = Capitalize(title);
+
+        if (this.isEmpty(title)) {
             throw new CommandException("Title field should not be empty!");
         }
 
+        request.setTitle(title);
     }
 
     @Override

@@ -13,9 +13,15 @@ public class GetByAuthorContract extends Validators implements Contract {
     public void validate(Request req) throws CommandException {
         BookRequest request = (BookRequest)req;
 
-        if (this.isEmpty(request.getAuthor())) {
+        String author = request.getAuthor();
+        author = author.trim();
+        author = Capitalize(author);
+
+        if (this.isEmpty(author)) {
             throw new CommandException("Author field should not be empty!");
         }
+
+        request.setAuthor(author);
     }
 
     @Override

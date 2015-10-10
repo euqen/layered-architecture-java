@@ -2,12 +2,9 @@ package by.bsuir.lab01.service;
 
 import by.bsuir.lab01.dao.DaoException;
 import by.bsuir.lab01.dao.DaoFactory;
-import by.bsuir.lab01.dao.ModificationDao;
-import by.bsuir.lab01.entity.Book;
 import by.bsuir.lab01.entity.Entity;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class BaseViewService {
 	

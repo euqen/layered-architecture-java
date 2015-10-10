@@ -30,6 +30,10 @@ public class GetAllBooksCommand extends Command {
 
             try {
                 result = BookService.find(contractData);
+
+                if (result.isEmpty()) {
+                    throw new CommandException("Oh, snap! There are no books in your library!");
+                }
             }
             catch(ServiceException e) {
                 throw new CommandException(e.getMessage(), e);
@@ -42,7 +46,7 @@ public class GetAllBooksCommand extends Command {
             return response;
         }
 
-        response.setSuccessMessage("Book was found!");
+        response.setSuccessMessage("Found " + result.size() + " books!");
         response.setBooks(result);
         response.setStatus(SUCCEED);
         return response;

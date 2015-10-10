@@ -4,6 +4,7 @@ import by.bsuir.lab01.actions.book.getBook.GetAllBooksCommand;
 import by.bsuir.lab01.actions.book.getBook.GetByAuthorCommand;
 import by.bsuir.lab01.actions.book.getBook.GetByTitleCommand;
 import by.bsuir.lab01.actions.book.insertBook.InsertBookCommand;
+import by.bsuir.lab01.actions.user.autoSignIn.AutoSignInCommand;
 import by.bsuir.lab01.actions.user.signIn.SignInUserCommand;
 import by.bsuir.lab01.actions.user.signOut.SignOutUserCommand;
 import by.bsuir.lab01.actions.user.signUp.SignUpUserCommand;
@@ -22,6 +23,7 @@ public final class CommandHelper {
 		commands.put(CommandName.GET_ALL, new GetAllBooksCommand());
 		commands.put(CommandName.GET_BY_AUTHOR, new GetByAuthorCommand());
 		commands.put(CommandName.GET_BY_TITLE, new GetByTitleCommand());
+		commands.put(CommandName.AUTO_SIGN_IN, new AutoSignInCommand());
 	}	
 	
 	public Command getCommand(String commandName) {

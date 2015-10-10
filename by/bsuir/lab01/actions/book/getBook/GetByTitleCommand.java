@@ -7,9 +7,12 @@ import by.bsuir.lab01.bean.Response;
 import by.bsuir.lab01.command.Command;
 import by.bsuir.lab01.command.CommandException;
 import by.bsuir.lab01.entity.Book;
+import by.bsuir.lab01.entity.Entity;
 import by.bsuir.lab01.service.BaseViewService;
 import by.bsuir.lab01.service.BookService;
 import by.bsuir.lab01.service.ServiceException;
+
+import java.util.ArrayList;
 
 public class GetByTitleCommand extends Command {
 
@@ -19,14 +22,14 @@ public class GetByTitleCommand extends Command {
 
         GetByTitleContract getByTitleContract = new GetByTitleContract();
 
-        Book result;
+        ArrayList<Entity> result;
 
         try {
             getByTitleContract.validate(request);
             Book contractData = getByTitleContract.getContractData(request);
 
             try {
-                result = (Book)BookService.findOne(contractData);
+                result = BookService.findByTitle(contractData);
             }
             catch (ServiceException e) {
                 throw new CommandException(e.getMessage(), e);
@@ -39,8 +42,8 @@ public class GetByTitleCommand extends Command {
         }
 
 
-        response.setSuccessMessage("Search successfully completed!");
-        response.setBook(result);
+        response.setSuccessMessage("Found " + result.size() + " books");
+        response.setBooks(result);
         response.setStatus(SUCCEED);
         return response;
     }
