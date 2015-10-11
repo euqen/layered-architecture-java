@@ -269,6 +269,7 @@ public final class BookDao extends FileDaoFactory {
         return resultSet;
     }
 
+
     private void isOriginExists(File file) throws DaoException {
         if (!file.exists()) {
             throw new DaoException("Data origin does not exists!");

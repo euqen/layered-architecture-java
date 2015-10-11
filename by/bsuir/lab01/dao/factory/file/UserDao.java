@@ -25,6 +25,70 @@ public final class UserDao extends FileDaoFactory {
     private final String origin = "/home/euqen/src/by/bsuir/lab01/source/users.txt";
     private final String authOrigin = "/home/euqen/src/by/bsuir/lab01/source/auth.txt";
 
+    public Boolean isSudoUser() throws DaoException {
+        File file = new File(authOrigin);
+
+        try {
+            this.isOriginExists(file);
+        }
+        catch (DaoException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+        Boolean result = false;
+
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
+
+            try {
+                String line;
+                if ((line = in.readLine()) != null) {
+                    String username = ""; Integer pos = 0;
+                    String password = ""; String isSudoField = "";
+
+                    for(Integer i = 0; i < line.length(); i++) {
+                        if (line.charAt(i) != ':') {
+                            username += line.charAt(i);
+                        }
+                        else {
+                            pos = ++i;
+                            break;
+                        }
+                    }
+
+                    for (Integer i = pos; i < line.length(); i++) {
+                        if (line.charAt(i) != ':') {
+                            password += line.charAt(i);
+                        }
+                        else {
+                            pos = ++i;
+                            break;
+                        }
+                    }
+
+                    for (Integer i = pos; i < line.length(); i++) {
+                        isSudoField += line.charAt(i);
+                    }
+
+                    if (isSudoField.contentEquals("sudo")) {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            finally {
+                in.close();
+            }
+        }
+        catch (IOException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+        return result;
+
+    }
+
     public User getTemporaryAuthData() throws DaoException {
         File file = new File(authOrigin);
 
@@ -57,7 +121,12 @@ public final class UserDao extends FileDaoFactory {
                     }
 
                     for (Integer i = pos; i < line.length(); i++) {
-                        password += line.charAt(i);
+                        if (line.charAt(i) != ':') {
+                            password += line.charAt(i);
+                        }
+                        else {
+                            break;
+                        }
                     }
 
                     result.username = username;
@@ -254,7 +323,7 @@ public final class UserDao extends FileDaoFactory {
 
     private void isOriginExists(File file) throws DaoException {
         if (!file.exists()) {
-            throw new DaoException(file.getPath() + " does not exists!");
+            throw new DaoException(file.getPath() + " does not exists! Please create it and redo this operation!");
         }
     }
 

@@ -22,6 +22,20 @@ public final class UserService extends BaseViewService {
         return user;
     }
 
+    public static Boolean isSudoUser() throws ServiceException {
+        UserDao userDao = (UserDao)DaoFactory.getDao(new User());
+
+        Boolean isSudoUser;
+        try {
+            isSudoUser = userDao.isSudoUser();
+        }
+        catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+        return isSudoUser;
+    }
+
     public static void signIn(User user) throws ServiceException {
         UserDao userDao = (UserDao)DaoFactory.getDao(user);
 

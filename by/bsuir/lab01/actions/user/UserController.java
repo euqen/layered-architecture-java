@@ -13,8 +13,8 @@ public class UserController extends Controller {
         UserRequest request = new UserRequest();
         request.setCommandName("AUTO_SIGN_IN");
         UserResponse response = (UserResponse)this.executeRequest(request);
+        this.render(response);
         if (!response.hasErrors()) {
-            this.render(response);
             return true;
         }
 
@@ -49,9 +49,13 @@ public class UserController extends Controller {
 
         UserResponse response = (UserResponse)this.executeRequest(request);
         this.render(response);
+        Console console = Console.getInstance();
 
         if (response.getStatus() == 200) {
             this.signIn(username, password);
+        }
+        else {
+            console.showUserActions();
         }
 
     }

@@ -9,6 +9,7 @@ import by.bsuir.lab01.command.Command;
 import by.bsuir.lab01.entity.Book;
 import by.bsuir.lab01.service.BaseViewService;
 import by.bsuir.lab01.service.ServiceException;
+import by.bsuir.lab01.service.UserService;
 
 public class InsertBookCommand extends Command {
 
@@ -22,7 +23,13 @@ public class InsertBookCommand extends Command {
 			Book contractData = insertBookContract.getContractData(request);
 
 			try {
-				BaseViewService.insert(contractData);
+				Boolean isSudo = UserService.isSudoUser();
+				if (isSudo) {
+					BaseViewService.insert(contractData);
+				}
+				else {
+					throw new CommandException("You have no sudo rights to do this operation!");
+				}
 			}
 			catch (ServiceException e) {
 				throw new CommandException(e.getMessage(), e);

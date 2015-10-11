@@ -25,7 +25,7 @@ public class UserResponse extends Response {
     }
 
     public boolean hasErrors() {
-        if (autoAuthError != null) {
+        if (autoAuthError != null || this.getErrorMessage() != null) {
             return true;
         }
 
