@@ -16,6 +16,13 @@ import java.util.ArrayList;
 
 public class GetAllBooksCommand extends Command {
 
+    /**
+     * This command find all books in the data origin using book service.
+     * Also before call specific service performed validation using specific contract.
+     *
+     * @param request
+     * @return response
+     */
     @Override
     public Response execute(Request request) {
         BookResponse response = new BookResponse();

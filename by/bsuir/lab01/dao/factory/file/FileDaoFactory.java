@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 public abstract class FileDaoFactory extends DaoFactory {
 
+	/**
+	 * Get instance of specific factory depending on passed object.
+	 *
+	 * @param entity
+	 * @return
+	 */
 	public static FileDaoFactory getInstance(Entity entity) {
 		if (entity instanceof Book) {
 			return BookDao.getInstance();

@@ -13,6 +13,11 @@ import java.util.Iterator;
 
 public class BookController extends Controller {
 
+	/**
+	 * Sends a request to get books by author.
+	 *
+	 * @param author
+	 */
 	public void getByAuthor(String author) {
 		BookRequest request = new BookRequest();
 		request.setAuthor(author);
@@ -27,6 +32,11 @@ public class BookController extends Controller {
 		console.showBookActions();
 	}
 
+	/**
+	 * Sends a request to get books by title.
+	 *
+	 * @param title
+	 */
 	public void getByTitle(String title) {
 		BookRequest request = new BookRequest();
 		request.setTitle(title);
@@ -41,6 +51,9 @@ public class BookController extends Controller {
 		console.showBookActions();
 	}
 
+	/**
+	 * Sends a request to get all books.
+	 */
 	public void getAll() {
 		BookRequest request = new BookRequest();
 		request.setCommandName("GET_ALL");
@@ -54,6 +67,12 @@ public class BookController extends Controller {
 		console.showBookActions();
 	}
 
+	/**
+	 * Sends a request to insert book.
+	 *
+	 * @param author
+	 * @param title
+	 */
 	public void insert(String author, String title) {
 
 		BookRequest request = new BookRequest();
@@ -68,6 +87,11 @@ public class BookController extends Controller {
 		console.showBookActions();
 	}
 
+	/**
+	 * Call view to print books from response.
+	 *
+	 * @param response
+	 */
 	private void printBooks(BookResponse response) {
 		ArrayList<Entity> books = response.getBooks();
 		Iterator<Entity> iterator = books.iterator();

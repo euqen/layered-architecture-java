@@ -13,6 +13,13 @@ import by.bsuir.lab01.view.Console;
 
 public class SignInUserCommand extends Command {
 
+	/**
+	 * This command find user according to query and if everything is
+	 * all right log in using user service. Also performed request validation.
+	 *
+	 * @param request
+	 * @return response
+	 */
 	@Override
 	public Response execute(Request request) {
 		UserResponse response = new UserResponse();

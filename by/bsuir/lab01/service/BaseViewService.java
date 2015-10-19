@@ -7,7 +7,13 @@ import by.bsuir.lab01.entity.Entity;
 import java.util.ArrayList;
 
 public class BaseViewService {
-	
+
+	/**
+	 * Base insert method which call specific factory depending on type of passed object.
+	 *
+	 * @param entity
+	 * @throws ServiceException
+	 */
 	public static void insert(Entity entity) throws ServiceException {
 		DaoFactory daoFactory = DaoFactory.getDao(entity);
 
@@ -20,6 +26,13 @@ public class BaseViewService {
 
 	}
 
+	/**
+	 * Base find method which call specific factory depending on type of passed object.
+	 *
+	 * @param entity
+	 * @return First found entity or null
+	 * @throws ServiceException
+	 */
 	public static Entity findOne(Entity entity) throws ServiceException {
 		DaoFactory daoFactory = DaoFactory.getDao(entity);
 
@@ -35,6 +48,13 @@ public class BaseViewService {
 		return result;
 	}
 
+	/**
+	 * Base find method which call specific factory depending on type of passed object.
+	 *
+	 * @param entity
+	 * @return All found entities
+	 * @throws ServiceException
+	 */
 	public static ArrayList<Entity> find(Entity entity) throws  ServiceException {
 		DaoFactory daoFactory = DaoFactory.getDao(entity);
 

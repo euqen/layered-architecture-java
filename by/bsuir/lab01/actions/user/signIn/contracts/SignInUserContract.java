@@ -9,6 +9,12 @@ import by.bsuir.lab01.entity.User;
 
 public class SignInUserContract extends Validators implements Contract {
 
+    /**
+     * Request fields validation.
+     *
+     * @param req
+     * @throws CommandException
+     */
     @Override
     public void validate(Request req) throws CommandException {
 
@@ -34,6 +40,12 @@ public class SignInUserContract extends Validators implements Contract {
         request.setUsername(username);
     }
 
+    /**
+     * Get query data for pass it into service.
+     *
+     * @param req
+     * @return user data
+     */
     @Override
     public User getContractData(Request req) {
         User contractData = new User();

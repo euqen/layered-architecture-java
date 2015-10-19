@@ -12,6 +12,13 @@ import by.bsuir.lab01.service.UserService;
 
 public class AutoSignInCommand extends Command {
 
+    /**
+     * This command get temporary user data for making an attempt to
+     * sign in user without typing username and password again.
+     *
+     * @param request
+     * @return response
+     */
     @Override
     public Response execute(Request request) {
         UserResponse response = new UserResponse();

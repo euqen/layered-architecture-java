@@ -16,6 +16,13 @@ import java.util.ArrayList;
 
 public class GetByTitleCommand extends Command {
 
+    /**
+     * This command find all books by title in specific data origin using book service.
+     * Also before call specific service performed validation using specific contract.
+     *
+     * @param request
+     * @return contract
+     */
     @Override
     public Response execute(Request request) {
         BookResponse response = new BookResponse();

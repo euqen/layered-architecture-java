@@ -19,6 +19,13 @@ public final class BookDao extends FileDaoFactory {
 
     private final String origin = "/home/euqen/src/by/bsuir/lab01/source/books.txt";
 
+
+    /**
+     * Find all books in specific origin.
+     *
+     * @return Found books
+     * @throws DaoException
+     */
     @Override
     public ArrayList<Entity> find() throws DaoException {
         File file = new File(origin);
@@ -74,6 +81,13 @@ public final class BookDao extends FileDaoFactory {
     }
 
 
+    /**
+     * Find one book depending on passed entity
+     *
+     * @param book
+     * @return Book entity
+     * @throws DaoException
+     */
     @Override
     public Entity findOne(Entity book) throws DaoException {
         File file = new File(origin);
@@ -134,6 +148,13 @@ public final class BookDao extends FileDaoFactory {
         return result;
     }
 
+
+    /**
+     * Insert one book into specific origin
+     *
+     * @param book
+     * @throws DaoException
+     */
     public void insert(Entity book) throws DaoException {
         File file = new File(origin);
 
@@ -161,6 +182,13 @@ public final class BookDao extends FileDaoFactory {
 
     }
 
+    /**
+     * Find all books by author field
+     *
+     * @param query
+     * @return List of books
+     * @throws DaoException
+     */
     public ArrayList<Entity> findByAuthor(Book query) throws DaoException {
         File file = new File(origin);
 
@@ -215,6 +243,13 @@ public final class BookDao extends FileDaoFactory {
         return resultSet;
     }
 
+    /**
+     * Find all books by title
+     *
+     * @param query
+     * @return List of books
+     * @throws DaoException
+     */
     public ArrayList<Entity> findByTitle(Book query) throws DaoException {
         File file = new File(origin);
 
@@ -269,7 +304,11 @@ public final class BookDao extends FileDaoFactory {
         return resultSet;
     }
 
-
+    /**
+     * Check is data origin exists
+     * @param file
+     * @throws DaoException
+     */
     private void isOriginExists(File file) throws DaoException {
         if (!file.exists()) {
             throw new DaoException("Data origin does not exists!");

@@ -14,6 +14,13 @@ import java.util.Map;
 
 public class SignUpUserCommand extends Command {
 
+    /**
+     * This command find user according to query and if everything is
+     * all right sign up new user using user service. Also performed request validation.
+     *
+     * @param request
+     * @return response
+     */
     @Override
     public Response execute(Request request) {
         UserResponse response = new UserResponse();

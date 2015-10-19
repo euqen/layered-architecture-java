@@ -7,8 +7,14 @@ import java.util.ArrayList;
 
 public abstract class DaoFactory {
 
-	private static final String DAO_TYPE = "file"; //you must read it from property file
-	
+	private static final String DAO_TYPE = "file";
+
+	/**
+	 * Get concrete factory depending on using type of dao.
+	 *
+	 * @param entity
+	 * @return Factory
+	 */
 	public static DaoFactory getDao(Entity entity) {
 		if (DAO_TYPE.contentEquals("file")) {
 			return FileDaoFactory.getInstance(entity);

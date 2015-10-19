@@ -25,6 +25,13 @@ public final class UserDao extends FileDaoFactory {
     private final String origin = "/home/euqen/src/by/bsuir/lab01/source/users.txt";
     private final String authOrigin = "/home/euqen/src/by/bsuir/lab01/source/auth.txt";
 
+
+    /**
+     * Check is user have sudo access
+     *
+     * @return check result
+     * @throws DaoException
+     */
     public Boolean isSudoUser() throws DaoException {
         File file = new File(authOrigin);
 
@@ -89,6 +96,13 @@ public final class UserDao extends FileDaoFactory {
 
     }
 
+
+    /**
+     * Get user which previously signed in.
+     *
+     * @return User data
+     * @throws DaoException
+     */
     public User getTemporaryAuthData() throws DaoException {
         File file = new File(authOrigin);
 
@@ -144,6 +158,13 @@ public final class UserDao extends FileDaoFactory {
         return result;
     }
 
+
+    /**
+     * Find all users
+     *
+     * @return List of users
+     * @throws DaoException
+     */
     @Override
     public ArrayList<Entity> find() throws DaoException {
         File file = new File(origin);
@@ -179,6 +200,13 @@ public final class UserDao extends FileDaoFactory {
         return resultSet;
     }
 
+    /**
+     * Find one user depending on passed query
+     *
+     * @param user
+     * @return User data
+     * @throws DaoException
+     */
     @Override
     public User findOne(Entity user) throws DaoException {
         File file = new File(origin);
@@ -240,6 +268,13 @@ public final class UserDao extends FileDaoFactory {
         return result;
     }
 
+
+    /**
+     * Insert user into user list
+     *
+     * @param user
+     * @throws DaoException
+     */
     @Override
     public void insert(Entity user) throws DaoException {
         File file = new File(origin);
@@ -269,7 +304,12 @@ public final class UserDao extends FileDaoFactory {
         }
     }
 
-
+    /**
+     * Insert user into temporary file
+     *
+     * @param user
+     * @throws DaoException
+     */
     public void signIn(Entity user) throws DaoException {
         File file = new File(authOrigin);
 
@@ -303,6 +343,11 @@ public final class UserDao extends FileDaoFactory {
         }
     }
 
+    /**
+     * Remove temporary user file
+     *
+     * @throws DaoException
+     */
     public void signOut() throws DaoException {
         File file = new File(authOrigin);
 
@@ -321,12 +366,26 @@ public final class UserDao extends FileDaoFactory {
 
     }
 
+    /**
+     * Ckeck is data origin exists
+     *
+     * @param file
+     * @throws DaoException
+     */
+
     private void isOriginExists(File file) throws DaoException {
         if (!file.exists()) {
             throw new DaoException(file.getPath() + " does not exists! Please create it and redo this operation!");
         }
     }
 
+    /**
+     * Generate hashed string using sha1 algorythm
+     *
+     * @param text
+     * @return hash
+     * @throws DaoException
+     */
     private String sha1(String text) throws DaoException {
         MessageDigest sha1;
         String hash;

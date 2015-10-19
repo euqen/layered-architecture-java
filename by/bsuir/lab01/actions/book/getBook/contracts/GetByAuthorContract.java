@@ -9,6 +9,12 @@ import by.bsuir.lab01.entity.Book;
 
 public class GetByAuthorContract extends Validators implements Contract {
 
+    /**
+     * Request fields validation.
+     *
+     * @param req
+     * @throws CommandException
+     */
     @Override
     public void validate(Request req) throws CommandException {
         BookRequest request = (BookRequest)req;
@@ -24,6 +30,12 @@ public class GetByAuthorContract extends Validators implements Contract {
         request.setAuthor(author);
     }
 
+    /**
+     * Get query data for pass it into service.
+     *
+     * @param req
+     * @return Book data
+     */
     @Override
     public Book getContractData(Request req) {
         Book contractData = new Book();

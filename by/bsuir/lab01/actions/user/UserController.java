@@ -9,6 +9,12 @@ import by.bsuir.lab01.view.Console;
 
 public class UserController extends Controller {
 
+    /**
+     * Sends a request that makes an attempt to sign in automatically according to user,
+     * who signed in ever.
+     *
+     * @return attempt result
+     */
     public Boolean autoSignIn() {
         UserRequest request = new UserRequest();
         request.setCommandName("AUTO_SIGN_IN");
@@ -21,6 +27,12 @@ public class UserController extends Controller {
         return false;
     }
 
+    /**
+     * Sends a request to sign in user.
+     *
+     * @param username
+     * @param password
+     */
     public void signIn(String username, String password) {
 
         UserRequest request = new UserRequest();
@@ -40,6 +52,12 @@ public class UserController extends Controller {
         }
     }
 
+    /**
+     * Sends a request to sign up user.
+     *
+     * @param username
+     * @param password
+     */
     public void signUp(String username, String password) {
 
         UserRequest request = new UserRequest();
@@ -60,6 +78,9 @@ public class UserController extends Controller {
 
     }
 
+    /**
+     * Sends a request to sign out user.
+     */
     public void signOut() {
         UserRequest request = new UserRequest();
         request.setCommandName("SIGN_OUT");

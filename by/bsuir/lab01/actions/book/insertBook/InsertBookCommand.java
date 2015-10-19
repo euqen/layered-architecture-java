@@ -13,6 +13,15 @@ import by.bsuir.lab01.service.UserService;
 
 public class InsertBookCommand extends Command {
 
+
+	/**
+	 * Insert new book into specific data origin using book service.
+	 * Also perform request validation and check user's rights to do this operation.
+	 *
+	 * @param request
+	 * @return response
+	 * @throws CommandException
+	 */
 	@Override
 	public Response execute(Request request) throws CommandException {
 		BookResponse response = new BookResponse();

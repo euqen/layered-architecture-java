@@ -7,6 +7,12 @@ import by.bsuir.lab01.entity.User;
 
 public final class UserService extends BaseViewService {
 
+    /**
+     * Provide a service which get user data whenever signed in.
+     *
+     * @return User data
+     * @throws ServiceException
+     */
     public static User getTemporaryAuthData() throws ServiceException {
         UserDao userDao = (UserDao)DaoFactory.getDao(new User());
 
@@ -22,6 +28,13 @@ public final class UserService extends BaseViewService {
         return user;
     }
 
+
+    /**
+     * Provide a service which check is current user have sudo access to sources.
+     *
+     * @return Check result
+     * @throws ServiceException
+     */
     public static Boolean isSudoUser() throws ServiceException {
         UserDao userDao = (UserDao)DaoFactory.getDao(new User());
 
@@ -36,6 +49,13 @@ public final class UserService extends BaseViewService {
         return isSudoUser;
     }
 
+
+    /**
+     * Provide a service which sign user in.
+     *
+     * @param user
+     * @throws ServiceException
+     */
     public static void signIn(User user) throws ServiceException {
         UserDao userDao = (UserDao)DaoFactory.getDao(user);
 
@@ -48,6 +68,13 @@ public final class UserService extends BaseViewService {
 
     }
 
+
+    /**
+     * Provide a service which sign user out.
+     *
+     * @param user
+     * @throws ServiceException
+     */
     public static void signOut(User user) throws ServiceException {
         UserDao userDao = (UserDao)DaoFactory.getDao(user);
 

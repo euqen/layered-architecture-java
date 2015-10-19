@@ -11,6 +11,11 @@ public class Controller {
 
     private CommandHelper commandList = new CommandHelper();
 
+    /**
+     * Render specific message type depending on response status.
+     *
+     * @param response
+     */
     protected void render(Response response) {
         if (response.getStatus() == 200) {
             Console.notification(response.getSuccessMessage());
@@ -22,6 +27,13 @@ public class Controller {
             Console.alert(response.getErrorMessage());
         }
     }
+
+    /**
+     * Execute specific request depending on command name
+     *
+     * @param request
+     * @return
+     */
 
     protected Response executeRequest(Request request) {
         Response response = null;

@@ -12,6 +12,13 @@ import by.bsuir.lab01.service.UserService;
 
 public class SignOutUserCommand extends Command {
 
+    /**
+     * This command signing user out form the system.
+     * Before using service performed request validation.
+     *
+     * @param request
+     * @return response
+     */
     @Override
     public Response execute(Request request) {
         UserResponse response = new UserResponse();

@@ -10,6 +10,13 @@ import java.util.ArrayList;
 
 public final class BookService extends BaseViewService {
 
+    /**
+     * Provide a service which getting all books using author field.
+     *
+     * @param book
+     * @return Collection of found entities
+     * @throws ServiceException
+     */
     public static ArrayList<Entity> findByAuthor(Book book) throws ServiceException {
         BookDao bookDao = (BookDao)DaoFactory.getDao(book);
 
@@ -25,6 +32,13 @@ public final class BookService extends BaseViewService {
         return result;
     }
 
+    /**
+     * Provide a service which getting all books using title field.
+     *
+     * @param book
+     * @return Collection of found entities
+     * @throws ServiceException
+     */
     public static ArrayList<Entity> findByTitle(Book book) throws ServiceException {
         BookDao bookDao = (BookDao)DaoFactory.getDao(book);
 
